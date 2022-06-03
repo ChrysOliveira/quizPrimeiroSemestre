@@ -1,0 +1,122 @@
+.container {
+    background-color: #bdb9b9;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    grid-template-rows: auto 1fr;
+    font-family: 'Noto Sans', sans-serif;
+    font-weight: bold;
+    color: black;
+}
+
+.container__titulo {
+    font-family: 'Pacifico', cursive;
+    display: inline;
+    grid-column: 2;
+    justify-self: center;
+    font-size: 3rem;
+    color: #000000;
+}
+
+.container__conteudo {
+    grid-row: 2;
+    grid-column: 2;
+    display: grid;
+    grid-template-rows: repeat(5, auto);
+}
+
+.container__conteudo-titulo {
+    justify-self: center;
+    align-self: center;
+}
+
+.container__conteudo-video {
+    width: 80%;
+    border-radius: 5%;
+    justify-self: center;
+}
+
+.container__conteudo-pergunta {
+    justify-self: center;
+    align-self: center;
+}
+
+.container__conteudo-respostas {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: auto auto;
+    justify-content: center;
+    gap: 10px;
+    padding-bottom: 10px;
+}
+
+.resposta {
+    width: 150px;
+    height: 150px;
+    border-radius: 5%;
+    align-self: center;
+    justify-self: center;
+    color: black;
+    display: grid;
+    text-decoration: none;
+    box-sizing: border-box;
+}
+
+.selecionado {
+    border: 2px solid #000000;
+}
+
+.resposta__texto {
+    display: inline-block;
+    justify-self: center;
+    align-self: center;
+}
+
+.container__conteudo-respostas--1 {
+    background-color: rgb(255, 255, 0);
+}
+
+.container__conteudo-respostas--1:hover {
+    background-color: rgba(255, 255, 0, 0.8);
+}
+
+.container__conteudo-respostas--2 {
+    background-color: rgb(21, 255, 0);
+}
+
+.container__conteudo-respostas--2:hover {
+    background-color: rgba(21, 255, 0, 0.8);
+}
+
+.container__conteudo-respostas--3 {
+    background-color: rgb(255, 115, 0);
+}
+
+.container__conteudo-respostas--3:hover {
+    background-color: rgba(255, 115, 0, 0.8);
+}
+
+.container__conteudo-respostas--4 {
+    background-color: rgb(0, 132, 255);
+}
+
+.container__conteudo-respostas--4:hover {
+    background-color: rgba(0, 132, 255, 0.8);
+}
+
+.container__conteudo-botoes {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    font-size: 2rem;
+}
+
+.container__conteudo-botoes--anterior {
+    grid-column: 1;
+    justify-self: center;
+    color: black;
+}
+
+.container__conteudo-botoes--proximo {
+    grid-column: 2;
+    justify-self: center;
+    color: black;
+}
