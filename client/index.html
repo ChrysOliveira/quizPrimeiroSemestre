@@ -13,40 +13,82 @@
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/awesome/all.css">
     <link rel="stylesheet" href="assets/css/index.css">
+    <link rel="stylesheet" href="assets/css/resultado.css">
 </head>
 
-<body class="container">
-    <h1 class="container__titulo">Quiz</h1>
-    <main class="container__conteudo">
-        <p class="container__conteudo-titulo"><span class="numero-pergunta" id="numero-questao">1</span> - <span class="descricao-pergunta"> Analisando o personagem</span></p>
-        <video class="container__conteudo-video" controls>
-            <source src="assets/videos/1-videoplayback.mp4" type="video/mp4">
-            Seu navegador nao suporta video
-        </video>
-        <p class="container__conteudo-pergunta">Quem eh pain?</p>
-        <div class="container__conteudo-respostas">
-            <a href="#" class="container__conteudo-respostas--1 resposta">
-                <p class="resposta__texto" id="resposta-1">ABC</p>
-            </a>
-            <a href="#" class="container__conteudo-respostas--2 resposta">
-                <p class="resposta__texto" id="resposta-2">ABC</p>
-            </a>
-            <a href="#" class="container__conteudo-respostas--3 resposta">
-                <p class="resposta__texto" id="resposta-3">ABC</p>
-            </a>
-            <a href="#" class="container__conteudo-respostas--4 resposta">
-                <p class="resposta__texto" id="resposta-4">ABC</p>
-            </a>
+<body>
+    <div class="container">
+        <h1 class="container__titulo">Quiz</h1>
+        <main class="container__conteudo">
+            <p class="container__conteudo-titulo"><span class="numero-pergunta" id="numero-questao">1</span> - <span class="descricao-pergunta"> Analisando o personagem</span></p>
+            <p class="container__conteudo-erro">Selecione uma opcao</p>
+            <div id="container__conteudo-video">
+                <video class="container__conteudo-video" controls>
+                    <source src="assets/videos/1-videoplayback.mp4" type="video/mp4">
+                    Seu navegador nao suporta video
+                </video>
+            </div>
+            <p class="container__conteudo-pergunta">Quem eh pain?</p>
+            <div class="container__conteudo-respostas">
+                <a href="#" class="container__conteudo-respostas--1 resposta">
+                    <p class="resposta__texto" id="resposta-1">ABC</p>
+                </a>
+                <a href="#" class="container__conteudo-respostas--2 resposta">
+                    <p class="resposta__texto" id="resposta-2">ABC</p>
+                </a>
+                <a href="#" class="container__conteudo-respostas--3 resposta">
+                    <p class="resposta__texto" id="resposta-3">ABC</p>
+                </a>
+                <a href="#" class="container__conteudo-respostas--4 resposta">
+                    <p class="resposta__texto" id="resposta-4">ABC</p>
+                </a>
+            </div>
+            <div class="container__conteudo-botoes">
+                <a href="#" class="container__conteudo-botoes--anterior" id="botao-anterior"><i class="fa-solid fa-angles-left"></i></a>
+                <a href="#" class="container__conteudo-botoes--proximo" id="botao-proximo"><i class="fa-solid fa-angles-right"></i></a>
+            </div>
+        </main>
+    </div>
+
+    <div class="resultados">
+        <div class="resultados--container">
+            <h1 class="resultados--container__titulo">Seu resultado...</h1>
+            <main class="resultados--container__conteudo">
+                <p class="resultados--conteudo__resposta-feliz"><i class="fa-regular fa-face-smile"></i></p>
+                <p class="resultados--conteudo__resposta-triste"><i class="fa-regular fa-face-frown"></i></p>
+
+                <div class="resultados--conteudo__pontuacao">
+                    <p class="resultados--pontuacao__positiva">Quantidade de acertos: <span class="resultados--numero-acertos">0</span></p>
+                    <p class="resultados--pontuacao__negativa">Quantidade de erros: <span class="resultados--numero-erros">0</span></p>
+                </div>
+
+                <div class="resultados--conteudo__botoes">
+                    <a href="#" class="resultados--conteudo__botao-restart"><i class="fa-solid fa-repeat icone-restart resultados--icone-restart"></i></a>
+
+                    <a href="#" class="resultados--conteudo__botao-jogo">
+                        <p class="resultados--texto-jogo">Ver jogo</p>
+                    </a>
+                </div>
+
+                <table class="resultados--tabela">
+                    <thead>
+                        <tr>
+                            <th>No. Questao</th>
+                            <th>Historico</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </main>
         </div>
-        <div class="container__conteudo-botoes">
-            <a href="#" class="container__conteudo-botoes--anterior" id="botao-anterior"><i class="fa-solid fa-angles-left"></i></a>
-            <a href="#" class="container__conteudo-botoes--proximo" id="botao-proximo"><i class="fa-solid fa-angles-right"></i></a>
-        </div>
-    </main>
+    </div>
 
     <script src="assets/js/libs/jquery-3.6.0.js"></script>
-    <script src="assets/js/perguntas.js"></script>
+    <script src="assets/js/questoes.js"></script>
+    <script src="assets/js/resultados.js"></script>
     <script src="assets/js/index.js"></script>
+
 </body>
 
-</html>
+</html>00

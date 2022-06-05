@@ -1,11 +1,16 @@
-.container {
+body {
     background-color: #bdb9b9;
+    overflow-y: scroll;
+}
+
+.container {
     display: grid;
     grid-template-columns: 1fr auto 1fr;
     grid-template-rows: auto 1fr;
     font-family: 'Noto Sans', sans-serif;
     font-weight: bold;
     color: black;
+    height: 100vh;
 }
 
 .container__titulo {
@@ -15,6 +20,7 @@
     justify-self: center;
     font-size: 3rem;
     color: #000000;
+    margin: 0px;
 }
 
 .container__conteudo {
@@ -27,6 +33,20 @@
 .container__conteudo-titulo {
     justify-self: center;
     align-self: center;
+}
+
+.container__conteudo-erro {
+    color: red;
+    justify-self: center;
+    display: none;
+}
+
+#container__conteudo-video {
+    width: 50%;
+    justify-self: center;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
 }
 
 .container__conteudo-video {

@@ -1,36 +1,44 @@
-const botaoAnterior = $('#botao-anterior');
+var botaoAnterior = $('#botao-anterior');
 botaoAnterior.click(retornaQuestao);
 
-const botaoProximo = $('#botao-proximo');
+var botaoProximo = $('#botao-proximo');
 botaoProximo.click(avancaQuestao);
 
 $('.resposta').click(selecionaResposta);
 
-let questaoAtual = $('#numero-questao')
-let numeroQuestaoAtual = questaoAtual.text();
+$('.resultados--conteudo__botao-jogo').click(() => {
+    $('.resultados--tabela').stop().fadeToggle();
+});
 
-let valorRespostaSelecionada;
+$('.resultados--conteudo__botao-restart').click(restart);
 
-let listaDeRespostasDaPartida = new Map();
+var questaoAtual = $('#numero-questao');
+var numeroQuestaoAtual = questaoAtual.text();
+
+var valorRespostaSelecionada;
 
 $(() => {
     preencheQuestao();
-})
+});
 
 function preencheQuestao() {
 
-
     $('#numero-questao').text(numeroQuestaoAtual);
     $('.descricao-pergunta').text(listaDeDescricoes[numeroQuestaoAtual - 1].descricao);
-    $('.container__conteudo-video').find('source').attr('src', `assets/videos/${numeroQuestaoAtual}-videoplayback.mp4`);
+    $('#container__conteudo-video').html(`
+    <video class="container__conteudo-video" controls>
+    <source src="assets/videos/${numeroQuestaoAtual}-videoplayback.mp4" type="video/mp4">
+    Seu navegador nao suporta video
+    </video>`);
     $('.container__conteudo-pergunta').text(listaDePerguntas[numeroQuestaoAtual - 1].pergunta);
-    $('#resposta-1').text(listaDeOpcoes[numeroQuestaoAtual - 1].opcao1)
-    $('#resposta-2').text(listaDeOpcoes[numeroQuestaoAtual - 1].opcao2)
-    $('#resposta-3').text(listaDeOpcoes[numeroQuestaoAtual - 1].opcao3)
-    $('#resposta-4').text(listaDeOpcoes[numeroQuestaoAtual - 1].opcao4)
+    $('#resposta-1').text(listaDeOpcoes[numeroQuestaoAtual - 1].opcao1);
+    $('#resposta-2').text(listaDeOpcoes[numeroQuestaoAtual - 1].opcao2);
+    $('#resposta-3').text(listaDeOpcoes[numeroQuestaoAtual - 1].opcao3);
+    $('#resposta-4').text(listaDeOpcoes[numeroQuestaoAtual - 1].opcao4);
     $('.resposta').each(function() {
         $(this).removeClass('selecionado');
-    })
+    });
+    valorRespostaSelecionada = "";
 }
 
 function selecionaResposta(event) {
@@ -42,25 +50,39 @@ function selecionaResposta(event) {
     $(this).addClass('selecionado');
 
     event.preventDefault();
-    valorRespostaSelecionada = $('.selecionado').text().trim()
-
+    valorRespostaSelecionada = $('.selecionado').text().trim();
 }
 
 function avancaQuestao(event) {
 
     event.preventDefault();
 
-    if (valorRespostaSelecionada) {
+    if (numeroQuestaoAtual <= 10) {
+        if (!valorRespostaSelecionada) {
+            $('.container__conteudo-erro').stop().fadeToggle();
 
-        listaDeRespostasDaPartida.set(numeroQuestaoAtual, valorRespostaSelecionada);
-    } else {
-        //parei aqui para implementar mensagem de "precisa selecionar uma resposta"
-    }
+            setTimeout(() => {
 
-    if (numeroQuestaoAtual < 10) {
+                $('.container__conteudo-erro').stop().fadeToggle();
+            }, 1000);
+        } else {
 
-        questaoAtual.text(numeroQuestaoAtual++);
-        preencheQuestao();
+            listaDeRespostas.set(parseInt(numeroQuestaoAtual), valorRespostaSelecionada);
+
+            if (numeroQuestaoAtual < 10) {
+
+                questaoAtual.text(numeroQuestaoAtual++);
+
+                preencheQuestao();
+            } else {
+                $('#container__conteudo-video').html(``);
+                $('.container').toggle();
+                $('.resultados').toggle();
+                calculaAcertosEErros();
+                preencheResultados();
+                populaTabela();
+            }
+        }
     }
 
 }
@@ -74,4 +96,68 @@ function retornaQuestao(event) {
         questaoAtual.text(numeroQuestaoAtual--);
         preencheQuestao();
     }
+}
+
+function calculaAcertosEErros() {
+
+    listaDeRespostas.forEach(function(value, key) {
+
+        if (listaDePerguntas[key - 1].resposta == value) {
+            quantidadeDeAcertos++;
+        } else {
+            quantidadeDeErros++;
+        }
+    })
+}
+
+function preencheResultados() {
+
+    if (quantidadeDeAcertos > quantidadeDeErros || quantidadeDeAcertos == 5) {
+        $('.resultados--conteudo__resposta-feliz').toggle();
+    } else {
+        $('.resultados--conteudo__resposta-triste').toggle();
+    }
+    $('.resultados--numero-acertos').text(quantidadeDeAcertos);
+    $('.resultados--numero-erros').text(quantidadeDeErros);
+
+}
+
+function populaTabela() {
+    const tabelaCorpo = $('tbody');
+
+    listaDePerguntas.forEach(item => {
+
+        const linha = $('<tr>');
+
+        const dado1 = $('<td>').html(`${item.id}`);
+        const dado2 = $('<td>').html(`Pergunta: ${item.pergunta} <br>
+        Reposta correta: ${item.resposta} <br>
+        Resposta selecionada: ${listaDeRespostas.get(item.id)}`);
+
+        linha.append(dado1);
+        linha.append(dado2);
+
+        if (listaDeRespostas.get(item.id) == item.resposta) {
+
+            linha.addClass('resultados--questao-certa');
+        } else {
+
+            linha.addClass('resultados--questao-errada');
+        }
+        tabelaCorpo.append(linha);
+    })
+
+}
+
+function restart() {
+    quantidadeDeAcertos = 0;
+    quantidadeDeErros = 0;
+    listaDeRespostas = new Map();
+    numeroQuestaoAtual = 1;
+    valorRespostaSelecionada = "";
+    $('.container').toggle();
+    $('.resultados').toggle();
+    $('.resultados--conteudo__resposta-feliz').hide();
+    $('.resultados--conteudo__resposta-triste').hide();
+    preencheQuestao();
 }
